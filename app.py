@@ -23,3 +23,12 @@ def add_task():
     }
     tasks.append(task)
     return jsonify(task), 201
+
+
+@app.put("/api/tasks/<int:task_id>/done")
+def mark_done(task_id):
+    for task in tasks:
+        if task["id"] == task_id:
+            task["done"] = True
+            return jsonify(task), 200
+    return jsonify({"error": "task not found"}), 404
